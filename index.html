@@ -43,24 +43,35 @@
         font-size: 18px;
         margin-top: 20px;
       }
+      #page-counter {
+        text-align: center;
+        font-size: 14px;
+        margin-top: 50px;
+      }
     </style>
     <script type="text/javascript">
       function calculate() {
         // Get the buy and sell prices
         var buyPrice = parseFloat(document.getElementById("buyPrice").value);
         var sellPrice = parseFloat(document.getElementById("sellPrice").value);
-        var taxRate = parseFloat(document.getElementById("taxRate").value) || 5; // Use custom tax rate if provided, else default to 5%
+        var tax = parseFloat(document.getElementById("tax").value);
 
         // Calculate the tax and profit
-        var tax = sellPrice * (taxRate / 100);
-        var profit = sellPrice * (1 - (taxRate / 100)) - buyPrice;
+        var taxPercentage = tax / 100;
+        var taxAmount = sellPrice * taxPercentage;
+        var profit = sellPrice * (1 - taxPercentage) - buyPrice;
 
         // Print the results
         var resultElement = document.getElementById("result");
         resultElement.innerHTML = "Buy price: " + buyPrice.toFixed(2) + "<br>" +
                                   "Sell price: " + sellPrice.toFixed(2) + "<br>" +
-                                  "Tax (" + taxRate + "%): " + tax.toFixed(2) + "<br>" +
+                                  "Tax: " + taxAmount.toFixed(2) + "<br>" +
                                   "Profit: " + profit.toFixed(2);
+
+        // Increment the counter
+        var counterElement = document.getElementById("counter");
+        var counter = parseInt(counterElement.innerHTML);
+        counterElement.innerHTML = counter + 1;
       }
     </script>
   </head>
@@ -70,10 +81,13 @@
       <p>
         Buy price: <input type="number" id="buyPrice"><br>
         Sell price: <input type="number" id="sellPrice"><br>
-        Tax rate (%): <input type="number" id="taxRate" value="5"><br>
+        Tax (%): <input type="number" id="tax" value="5"><br>
         <button onclick="calculate()">Calculate</button>
       </p>
       <p id="result"></p>
+    </div>
+    <div id="page-counter">
+      <p>Number of times this page has been loaded: <span id="counter">1</span></p>
     </div>
   </body>
 </html>
