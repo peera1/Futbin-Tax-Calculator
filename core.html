@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profit Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      #calculator {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+      input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+      button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      #result {
+        font-size: 18px;
+        margin-top: 20px;
+      }
+    </style>
+    <script type="text/javascript">
+      function calculate() {
+        // Get the buy and sell prices
+        var buyPrice = parseFloat(document.getElementById("buyPrice").value);
+        var sellPrice = parseFloat(document.getElementById("sellPrice").value);
+
+        // Calculate the tax and profit
+        var tax = sellPrice * 0.05;
+        var profit = sellPrice * 0.95 - buyPrice;
+
+        // Print the results
+        var resultElement = document.getElementById("result");
+        resultElement.innerHTML = "Buy price: " + buyPrice.toFixed(2) + "<br>" +
+                                  "Sell price: " + sellPrice.toFixed(2) + "<br>" +
+                                  "Tax: " + tax.toFixed(2) + "<br>" +
+                                  "Profit: " + profit.toFixed(2);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="calculator">
+      <h1>Profit Calculator</h1>
+      <p>
+        Buy price: <input type="number" id="buyPrice"><br>
+        Sell price: <input type="number" id="sellPrice"><br>
+        <button onclick="calculate()">Calculate</button>
+      </p>
+      <p id="result"></p>
+    </div>
+  </body>
+</html>
