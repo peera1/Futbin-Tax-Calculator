@@ -49,16 +49,17 @@
         // Get the buy and sell prices
         var buyPrice = parseFloat(document.getElementById("buyPrice").value);
         var sellPrice = parseFloat(document.getElementById("sellPrice").value);
+        var taxRate = parseFloat(document.getElementById("taxRate").value) || 5; // Use custom tax rate if provided, else default to 5%
 
         // Calculate the tax and profit
-        var tax = sellPrice * 0.05;
-        var profit = sellPrice * 0.95 - buyPrice;
+        var tax = sellPrice * (taxRate / 100);
+        var profit = sellPrice * (1 - (taxRate / 100)) - buyPrice;
 
         // Print the results
         var resultElement = document.getElementById("result");
         resultElement.innerHTML = "Buy price: " + buyPrice.toFixed(2) + "<br>" +
                                   "Sell price: " + sellPrice.toFixed(2) + "<br>" +
-                                  "Tax: " + tax.toFixed(2) + "<br>" +
+                                  "Tax (" + taxRate + "%): " + tax.toFixed(2) + "<br>" +
                                   "Profit: " + profit.toFixed(2);
       }
     </script>
@@ -69,6 +70,7 @@
       <p>
         Buy price: <input type="number" id="buyPrice"><br>
         Sell price: <input type="number" id="sellPrice"><br>
+        Tax rate (%): <input type="number" id="taxRate" value="5"><br>
         <button onclick="calculate()">Calculate</button>
       </p>
       <p id="result"></p>
