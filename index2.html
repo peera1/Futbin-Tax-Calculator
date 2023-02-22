@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Calculate Sell Price</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+    
+    .container {
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 50px;
+      box-shadow: 2px 2px 5px #ccc;
+    }
+    
+    .container h1 {
+      margin-bottom: 30px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    
+    input[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+    
+    #details {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Calculate Sell Price</h1>
+    <label for="buy-price">Buy Price:</label>
+    <input type="number" id="buy-price" name="buy-price" required>
+
+    <label for="profit">Profit:</label>
+    <input type="number" id="profit" name="profit" required>
+
+    <label for="tax">Tax (%):</label>
+    <input type="number" id="tax" name="tax" value="5" required>
+
+    <input type="submit" value="Calculate Sell Price" onclick="calculateSellPrice()">
+
+    <label for="sell-price">Sell Price:</label>
+    <input type="text" id="sell-price" name="sell-price" readonly>
+
+    <p id="details"></p>
+  </div>
+
+  <script>
+    function calculateSellPrice() {
+      // Get the buy price, profit, and tax from the input fields
+      var buyPrice = parseFloat(document.getElementById("buy-price").value);
+      var profit = parseFloat(document.getElementById("profit").value);
+      var tax = parseFloat(document.getElementById("tax").value);
+      
+      // Calculate the minimum sell price required to make the desired profit
+      var minimumSellPrice = buyPrice + profit;
+      
+      // Calculate the sell price with the given tax
+      var sellPrice = minimumSellPrice * (1 + (tax / 100));
+      
+      // Update the sell price field with the calculated value
+      document.getElementById("sell-price").value = sellPrice.toFixed(2);
+      
+      // Display the calculation details to the user
+      document.getElementById("details").innerHTML =
+        "To make a profit of $" +
+        profit.toFixed(2) +
+        ", the minimum sell price is $" +
+        minimumSellPrice.toFixed(2) +
+        ".<br>" +
+        "With a " + tax + "% tax, the final sell price is $" +
+        sellPrice.toFixed(2) +
+        ".";
+    }
+  </script>
+</body>
+
+</html>
